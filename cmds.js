@@ -116,7 +116,7 @@ let score = 0;
 
 		//let numIndices = model.count();
 		const quizzes = model.getAll();
-		log(quizzes);
+		//log(quizzes);
 		for (var i = 0; i < quizzes.length; i++){
 			toBeResolved[i] = quizzes[i];
 			//log(toBeResolved);
