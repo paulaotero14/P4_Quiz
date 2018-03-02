@@ -133,8 +133,8 @@ let score = 0;
 		} else{
 			
 			let id = Math.round(Math.random()*(quizzes.length-1));
-			log('id: ' + id);
-			log('quizzes1: ' + quizzes.length);
+			//log('id: ' + id);
+			//log('quizzes1: ' + quizzes.length);
 			const quiz = model.getByIndex(id);
 
 
@@ -143,7 +143,7 @@ let score = 0;
 							score = score + 1;
 							log ("CORRECTO - llevas " + score + " aciertos.");
 							model.deleteByIndex(id);
-							log('quizes'+quizzes.length);
+							//log('quizes'+quizzes.length);
 							//log('longitud: ' +longitud);
 							playOne();
 							
