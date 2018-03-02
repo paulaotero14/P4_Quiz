@@ -82,13 +82,19 @@ exports.testCmd = (rl, id) => {
 				
 			const quiz = model.getByIndex(id);
 
-				rl.question(colorize(quiz.question, 'blue'), resp => {
-					process.stdout.isTTY && setTimeout(() => {rl.write(quiz.answer)},0);
+				rl.question(colorize(quiz.question + "?   ", 'red'), resp => {
 
-					if(resp === quiz.answer ) log (`[${colorize('CORRECTO', 'green')}]`);
-					 	else log (`[${colorize('INCORRECTO', 'red')}]`);
+
+					
+					if(String(resp.toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
+						log ("Su respuesta es correcta.");
+						biglog('Correcto','green');
+					}
+					 	else { log (`[${colorize("Su respuesta es incorrecta.")}]: `);
+					 	biglog('Incorrecto','red');
+					 }
 					rl.prompt();
-			})	;
+			});
 		}
 
 		catch (error) {
@@ -103,7 +109,7 @@ exports.testCmd = (rl, id) => {
 exports.playCmd = rl => {
 	log('Jugar  ', 'red');
 	rl.prompt();
-	
+
 };
 
 exports.deleteCmd = (rl, id) => {
