@@ -107,8 +107,52 @@ exports.testCmd = (rl, id) => {
 };
 
 exports.playCmd = rl => {
-	log('Jugar  ', 'red');
-	rl.prompt();
+		let score = 0;
+	let toBeResolved = [];
+	let numIndices = model.count();
+	const quizzes = model.getAll();
+	//log(quizzes);
+	//log(numIndices);
+	for (var i = 0; i < numIndices; i++){
+		toBeResolved[i] = quizzes[i];
+		//log(toBeResolved);
+		rl.prompt();
+	}
+	
+	const playOne = () => {
+
+		//if (toBeResolved.length === 0) {
+			if (toBeResolved.length === 0) {
+			log('No hay nada mas que preguntar. ');
+			log('Fin del juego. ACIERTOS: '+ score);
+			biglog(score,'magenta');
+			rl.prompt();
+		} else{
+			
+			let id = Math.round(Math.random()*(toBeResolved.length-1));
+			//toBeResolved = numIndices - 1;
+			//log(id);
+			const quiz = model.getByIndex(id);
+
+				rl.question(colorize(quiz.question + "?   ", 'red'), resp => {
+					if(String(resp.toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
+							score = score + 1;
+							log ("CORRECTO - llevas " + score + " aciertos.");
+							playOne();
+							
+						}
+						 	else { log ("INCORRECTO.");
+						 	log ("Fin del juego. Aciertos:" + score  );
+						 	biglog(score,'magenta');
+						 	rl.prompt();
+						 }
+						//rl.prompt();
+
+					});
+				};
+			};
+
+		playOne(); 
 
 };
 
