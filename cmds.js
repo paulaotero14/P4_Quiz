@@ -86,7 +86,7 @@ exports.testCmd = (rl, id) => {
 
 
 					
-					if(String(resp.toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
+					if(String(resp.trim().toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
 						log ("Su respuesta es correcta.");
 						biglog('Correcto','green');
 					}
@@ -135,7 +135,7 @@ exports.playCmd = rl => {
 			const quiz = model.getByIndex(id);
 
 				rl.question(colorize(quiz.question + "?   ", 'red'), resp => {
-					if(String(resp.toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
+					if(String(resp.trim().toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
 							score = score + 1;
 							log ("CORRECTO - llevas " + score + " aciertos.");
 							playOne();
