@@ -88,10 +88,12 @@ exports.testCmd = (rl, id) => {
 					
 					if(String(resp.trim().toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
 						log ("Su respuesta es correcta.");
-						biglog('Correcto','green');
+						//biglog('Correcto','green');
+						log('Correcto','green');
 					}
 					 	else { log (`[${colorize("Su respuesta es incorrecta.")}]: `);
-					 	biglog('Incorrecto','red');
+					 	//biglog('Incorrecto','red');
+					 	log('Incorrecto','red');
 					 }
 					rl.prompt();
 			});
@@ -128,7 +130,8 @@ let score = 0;
 			if (quizzes.length === 0) {
 			log('No hay nada mas que preguntar. ');
 			log('Fin del juego. ACIERTOS: '+ score);
-			biglog(score,'magenta');
+			//biglog(score,'magenta');
+			log(score,'magenta');
 			rl.prompt();
 		} else{
 			
@@ -150,7 +153,8 @@ let score = 0;
 						}
 						 	else { log ("INCORRECTO.");
 						 	log ("Fin del juego. Aciertos:" + score  );
-						 	biglog(score,'magenta');
+						 	//biglog(score,'magenta');
+						 	log(score,'magenta');
 						 	rl.prompt();
 						 }
 						//rl.prompt();
