@@ -117,7 +117,6 @@ exports.playCmd = rl => {
 	for (var i = 0; i < quizzes.length; i++){
 		toBeResolve.push(quizzes[i]);
 			//log(toBeResolve);
-		rl.prompt();
 		}
 	
 	
@@ -138,7 +137,7 @@ exports.playCmd = rl => {
 			let id = Math.trunc(Math.random()*(longitud));
 			//log('id: ' + id);
 			//log('quizzes1: ' + quizzes.length);
-			let quiz = model.getByIndex(id);
+			let quiz = toBeResolve[id];
 
 
 				rl.question(colorize(quiz.question + "?   ", 'red'), resp => {
