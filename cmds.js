@@ -109,51 +109,51 @@ exports.testCmd = (rl, id) => {
 };
 
 exports.playCmd = rl => {
-let score = 0;
-	let toBeResolved = [];
+	let score = 0;
+	let toBeResolve = [];
 	
+	const quizzes = model.getAll();
+		//log(quizzes);
+	for (var i = 0; i < quizzes.length; i++){
+		toBeResolve.push(quizzes[i]);
+			//log(toBeResolve);
+		rl.prompt();
+		}
 	
 	
 	const playOne = () => {
 
 		//let numIndices = model.count();
-		const quizzes = model.getAll();
-		//log(quizzes);
-		for (var i = 0; i < quizzes.length; i++){
-			toBeResolved[i] = quizzes[i];
-			//log(toBeResolved);
-			rl.prompt();
-		}
-		let longitud = toBeResolved.length;
-		
-		//if (toBeResolved.length === 0) {
-			if (quizzes.length === 0) {
+
+		let longitud = toBeResolve.length;
+		//if (toBeResolve.length === 0) {
+			if (longitud === 0) {
 			log('No hay nada mas que preguntar. ');
 			log('Fin del juego. ACIERTOS: '+ score);
-			biglog(score,'magenta');
+			log(score,'magenta');
 			//log(score,'magenta');
 			rl.prompt();
 		} else{
 			
-			let id = Math.round(Math.random()*(quizzes.length-1));
+			let id = Math.trunc(Math.random()*(longitud));
 			//log('id: ' + id);
 			//log('quizzes1: ' + quizzes.length);
-			const quiz = model.getByIndex(id);
+			let quiz = model.getByIndex(id);
 
 
 				rl.question(colorize(quiz.question + "?   ", 'red'), resp => {
 					if(String(resp.trim().toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
 							score = score + 1;
 							log ("CORRECTO - llevas " + score + " aciertos.");
-							model.deleteByIndex(id);
-							//log('quizes'+quizzes.length);
-							//log('longitud: ' +longitud);
+							toBeResolve.splice(id, 1);
+							
 							playOne();
+							rl.prompt();
 							
 						}
 						 	else { log ("INCORRECTO.");
 						 	log ("Fin del juego. Aciertos:" + score  );
-						 	biglog(score,'magenta');
+						 	log(score,'magenta');
 						 	//log(score,'magenta');
 						 	rl.prompt();
 						 }
@@ -161,6 +161,7 @@ let score = 0;
 
 					});
 				};
+				rl.prompt();
 			};
 
 		playOne(); 
