@@ -145,30 +145,25 @@ exports.testCmd = (rl, id) => {
 };
 
 exports.playCmd = rl => {
-	/*let score = 0;
+	let score = 0;
 	let toBeResolve = [];
 	
-	const quizzes = model.getAll();
-		//log(quizzes);
-	for (var i = 0; i < quizzes.length; i++){
-		toBeResolve.push(quizzes[i]);
-			//log(toBeResolve);
-		}
-	
-	
+	models.quiz.findAll()
+	 .each(quiz => {toBeResolve.push(quiz);
+	})
+
+	.then(() => {
+
 	const playOne = () => {
 
-		//let numIndices = model.count();
-
 		let longitud = toBeResolve.length;
-		//if (toBeResolve.length === 0) {
 			if (longitud === 0) {
 			log('No hay nada mas que preguntar. ');
 			log('Fin del juego. ACIERTOS: '+ score);
 			log(score,'magenta');
 			//log(score,'magenta');
 			rl.prompt();
-		} else{
+		} else {
 			
 			let id = Math.trunc(Math.random()*(longitud));
 			//log('id: ' + id);
@@ -176,8 +171,9 @@ exports.playCmd = rl => {
 			let quiz = toBeResolve[id];
 
 
-				rl.question(colorize(quiz.question + "?   ", 'red'), resp => {
-					if(String(resp.trim().toLowerCase()) === String(quiz.answer.toLowerCase()) ) {
+				return makeQuestion(rl, quiz.question+' ')
+				.then (a2 => {
+					if( a2  === String(quiz.answer.toLowerCase()) ) {
 							score = score + 1;
 							log ("CORRECTO - llevas " + score + " aciertos.");
 							toBeResolve.splice(id, 1);
@@ -190,21 +186,28 @@ exports.playCmd = rl => {
 						 	log ("Fin del juego. Aciertos:" + score  );
 						 	log(score,'magenta');
 						 	//log(score,'magenta');
-						 	rl.prompt();
-						 }
-						//rl.prompt();
-
-					});
-				};
+							 rl.prompt();
+					}
+				})
+							 
+			.catch(Sequelize.ValidationError, error => {
+					errorlog('El quiz es erróneo');
+					error.errors.forEach(({ message }) => errorlog(message));
+				})
+	
+			.catch(error => {
+				errorlog(error.message);
+				})
+			.then(() => {
 				rl.prompt();
-			};
+				});
+			}
+		}
+				
+				playOne();
+			})
+		};
 
-		playOne(); */
-		log('Jugar al quiz indicado.', 'red');
-
-	rl.prompt();
-
-};
 
 exports.deleteCmd = (rl, id) => {
 
