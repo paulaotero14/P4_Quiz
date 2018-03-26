@@ -121,7 +121,7 @@ exports.testCmd = (rl, id) => {
 			return makeQuestion(rl, quiz.question + '  ')
 	
 		.then(a2 => {
-			if (a2 === String(quiz.answer.toLowerCase()) ) {
+			if (a2.toLowerCase().trim()  === String(quiz.answer.toLowerCase().trim())) {
 			log ("Su respuesta es correcta.");
 			biglog('Correcto','green');
 			//log('Correcto','green');
@@ -173,7 +173,7 @@ exports.playCmd = rl => {
 
 				return makeQuestion(rl, quiz.question+' ')
 				.then (a2 => {
-					if( a2  === String(quiz.answer.toLowerCase()) ) {
+					if( a2.toLowerCase().trim()  === String(quiz.answer.toLowerCase().trim()) ) {
 							score = score + 1;
 							log ("CORRECTO - llevas " + score + " aciertos.");
 							toBeResolve.splice(id, 1);
